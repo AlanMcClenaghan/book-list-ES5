@@ -14,7 +14,6 @@ UI.prototype.addBookToList = function (book) {
 
   // Create table row element
   const row = document.createElement('tr');
-  console.log(row);
   // Insert cols
   row.innerHTML = `
   <td>${book.title}</td>
@@ -42,6 +41,13 @@ UI.prototype.showAlert = function (message, className) {
   }, 3000);
 }
 
+// Delete book
+UI.prototype.deleteBook = function (target) {
+  if (target.className === 'delete') {
+    target.parentElement.parentElement.remove();
+  }
+}
+
 // Clear fields
 UI.prototype.clearFields = function () {
   document.getElementById('title').value = '';
@@ -49,7 +55,7 @@ UI.prototype.clearFields = function () {
   document.getElementById('isbn').value = '';
 }
 
-//Event Listeners
+// Event Listener for add book
 const form = document.getElementById('book-form');
 form.addEventListener('submit', function (e) {
   e.preventDefault();
@@ -73,9 +79,24 @@ form.addEventListener('submit', function (e) {
     ui.addBookToList(book);
 
     // Show Success
-    ui.showAlert('Book added successfully.', 'success')
+    ui.showAlert('Book added!', 'success')
 
     // Clear fields
     ui.clearFields();
   }
+})
+
+// Event Listener for delete
+const bookList = document.getElementById('book-list');
+bookList.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  // Instaniate UI
+  const ui = new UI();
+
+  // Delete books
+  ui.deleteBook(e.target);
+
+  // Show Alert
+  ui.showAlert('Book deleted!', 'success')
 })
