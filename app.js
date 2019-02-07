@@ -93,11 +93,12 @@ Store.prototype.addBook = function(book) {
 Store.prototype.removeBook = function(target) {
   const isbn = target.parentElement.previousElementSibling.textContent;
   const books = Store.prototype.getBooks();
-  for (let i = 0; i < books.length; i++) {
-    if (books[i].isbn === isbn) {
-      books.splice(books[i], 1);
+  console.log(books);
+  books.forEach(function(book, index) {
+    if (book.isbn === isbn) {
+      books.splice(index, 1);
     }
-  }
+  });
   localStorage.setItem("books", JSON.stringify(books));
 };
 
